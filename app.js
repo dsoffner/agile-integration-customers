@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 
-app.local.apiurl = process.env.APIURL;
+app.locals.apiurl = process.env.APIURL;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -63,5 +63,5 @@ app.get('/', customersweb.listall);
 app.use(app.router);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port') + app.local.apiurl);
+  console.log('Express server listening on port ' + app.get('port') + app.locals.apiurl);
 });
