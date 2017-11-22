@@ -7,6 +7,7 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var restclient = require('node-rest-client');
 
 //load list route
 var customersweb = require('./routes/customersweb');
@@ -24,6 +25,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+
+app.local.apiurl = process.env.APIURL;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
