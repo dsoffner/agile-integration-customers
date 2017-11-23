@@ -7,6 +7,7 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var restclient = require('node-rest-client');
 
 //load list route
 var customersweb = require('./routes/customersweb');
@@ -25,6 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 
+app.locals.apiurl = process.env.APIURL;
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
@@ -41,7 +44,7 @@ app.use(
 
     connection(mysql,{
 
-        host: '172.30.235.5', // host mysql service
+        host: '172.30.110.147', // host mysql service
         user: 'dbuser',
         password : 'password',
         port : 3306, // port mysql service
@@ -60,5 +63,5 @@ app.get('/', customersweb.listall);
 app.use(app.router);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port ' + app.get('port') + app.locals.apiurl);
 });
